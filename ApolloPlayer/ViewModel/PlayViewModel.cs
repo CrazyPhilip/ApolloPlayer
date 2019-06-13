@@ -15,6 +15,9 @@ namespace ApolloPlayer.ViewModel
 {
     class PlayViewModel : NotificationObject
     {
+        /// <summary>
+        /// 该文件暂时没用
+        /// </summary>
         public DelegateCommand PlayCommand { get; set; }
         public DelegateCommand PreCommand { get; set; }
         public DelegateCommand NextCommand { get; set; }

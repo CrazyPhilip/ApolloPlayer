@@ -6,6 +6,9 @@ using ApolloPlayer.Model;
 using ApolloPlayer.ViewModel;
 using System.Windows.Media.Animation;
 using System.Windows.Threading;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.IO;
 
 namespace ApolloPlayer
 {
@@ -44,17 +47,16 @@ namespace ApolloPlayer
         /// <param name="e"></param>
         private void Play_btn_Click(object sender, RoutedEventArgs e)
         {
-
             if (play_btn.Content.ToString() == "▶")
             {
                 Play_Current(mlvm.Current_Index);
                 play_btn.Content = "| |";
-                ((Storyboard)this.FindResource("Rotateright")).Begin();   //图片开始旋转
                 media.Play();
             }
             else
             {
                 play_btn.Content = "▶";
+                albumpic.Source = new BitmapImage(new Uri("Image/Music.png"));
                 ((Storyboard)this.FindResource("Rotateright")).Stop();     //图片停止旋转
                 media.Pause();
             }
@@ -63,12 +65,53 @@ namespace ApolloPlayer
         private void Play_Current(int index = 0)
         {
             current_music = mlvm.Music_List[index];
-            title.Content = current_music.Music_title;
-            artist.Content = current_music.Artist;
-            album.Content = current_music.Album;
-            media.Source = new Uri(current_music.file_path, UriKind.Absolute);
+            title.Content = current_music.Music_title;   //音乐标题
+            artist.Content = current_music.Artist;    //歌手
+            album.Content = current_music.Album;    //专辑名
+            media.Source = new Uri(current_music.file_path, UriKind.Absolute);   //媒体源
+
+            //专辑封面
+            TagLib.File x = TagLib.File.Create(current_music.File_path);
+            if (x.Tag.Pictures.Length >= 1)
+            {
+                byte[] pic = x.Tag.Pictures[0].Data.Data;
+                albumpic.Source = ByteArrayToBitmapImage(pic);
+                
+            }
+            else
+            {
+                albumpic.Source = new BitmapImage(new Uri("Image/Music.png"));
+                ((Storyboard)this.FindResource("Rotateright")).Begin();   //图片开始旋转
+            }
         }
 
+        /// <summary>
+        /// byte[]转source
+        /// </summary>
+        /// <param name="byteArray"></param>
+        /// <returns></returns>
+        public static BitmapImage ByteArrayToBitmapImage(byte[] byteArray)
+        {
+            BitmapImage bmp = null;
+            try
+            {
+                bmp = new BitmapImage();
+                bmp.BeginInit();
+                bmp.StreamSource = new MemoryStream(byteArray);
+                bmp.EndInit();
+            }
+            catch
+            {
+                bmp = null;
+            }
+            return bmp;
+        }
+
+        /// <summary>
+        /// 停止按钮
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Stop_btn_Click(object sender, RoutedEventArgs e)
         {
             play_btn.Content = "▶";
@@ -76,12 +119,22 @@ namespace ApolloPlayer
             media.Stop();
         }
 
+        /// <summary>
+        /// 上一曲按钮
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Pre_btn_Click(object sender, RoutedEventArgs e)
         {
             mlvm.Current_Index = (mlvm.Current_Index + mlvm.Music_List.Count - 1) % mlvm.Music_List.Count;
             Play_Current(mlvm.Current_Index);
         }
 
+        /// <summary>
+        /// 下一曲按钮
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Next_btn_Click(object sender, RoutedEventArgs e)
         {
             Next_Music();
@@ -93,6 +146,11 @@ namespace ApolloPlayer
             Play_Current(mlvm.Current_Index);
         }
 
+        /// <summary>
+        /// 媒体开始事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Media_MediaOpened(object sender, RoutedEventArgs e)
         {
             position_slider.Maximum = media.NaturalDuration.TimeSpan.TotalSeconds;
@@ -103,6 +161,11 @@ namespace ApolloPlayer
             timer.Start();
         }
 
+        /// <summary>
+        /// 计时器
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void timer_tick(object sender, EventArgs e)
         {
             position_slider.Value = media.Position.TotalSeconds;
@@ -120,11 +183,21 @@ namespace ApolloPlayer
             media.Position = TimeSpan.FromSeconds(position_slider.Value);
         }
 
+        /// <summary>
+        /// 媒体结束事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Media_MediaEnded(object sender, RoutedEventArgs e)
         {
             Next_Music();
         }
 
+        /// <summary>
+        /// 删除按钮
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Delete_btn_Click(object sender, RoutedEventArgs e)
         {
             if(mlvm.Current_Index > -1 && mlvm.Music_List.Count > 0)
@@ -136,6 +209,11 @@ namespace ApolloPlayer
             
         }
         
+        /// <summary>
+        /// 关于
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AboutButton_Click(object sender, RoutedEventArgs e)
         {
             AboutWindow aboutWindow = new AboutWindow();
@@ -144,5 +222,7 @@ namespace ApolloPlayer
             aboutWindow.Top = this.Top;
             aboutWindow.Show();
         }
+
+
     }
 }

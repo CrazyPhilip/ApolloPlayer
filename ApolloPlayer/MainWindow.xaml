@@ -22,6 +22,7 @@
         </Storyboard>
     </Window.Resources>
 
+    <!--标题栏菜单按钮-->
     <metro:MetroWindow.LeftWindowCommands>
         <metro:WindowCommands>
             <wpf:PopupBox>
@@ -40,19 +41,25 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
+        <!--播放控件-->
         <StackPanel Grid.Row="0" Orientation="Vertical" HorizontalAlignment="Center">
             <StackPanel Orientation="Horizontal" Height="120">
                 <MediaElement Name="media" LoadedBehavior="Manual" MediaOpened="Media_MediaOpened" MediaEnded="Media_MediaEnded" 
                               Source="" Volume="{Binding ElementName=volume_slider, Path=Value}"/>
-                <Border Height="100" Width="100" CornerRadius="50" Margin="10" BorderBrush="#24bc77" BorderThickness="4">
-                    <!--BorderBrush="#24bc77"-->
-                    <Image Name="albumpic" Source="Image/Music.png" RenderTransformOrigin="0.5,0.5">
+                
+                <!--封面-->
+                <Border Height="100" Width="100" Margin="10">
+                    <Image Name="albumpic" Source="Image/Music.png" Stretch="Uniform">
                         <Image.LayoutTransform>
-                            <RotateTransform x:Name="rotate"/>
+                            <RotateTransform x:Name="rotate" CenterX="50" CenterY="50"/>
                         </Image.LayoutTransform>
+                        <Image.Clip>
+                            <EllipseGeometry RadiusX="50" RadiusY="50" Center="50,50"/>
+                        </Image.Clip>
                     </Image>
                 </Border>
 
+                <!--歌名、歌手和专辑-->
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Label Name="title" Height="40" Width="240" FontSize="22" FontWeight="Bold" VerticalContentAlignment="Center" Content="Apollo Player"/>
                     <Label Name="artist" Height="30" Width="240" FontSize="14" VerticalContentAlignment="Center" Content="Artist"></Label>
@@ -60,6 +67,7 @@
                 </StackPanel>
             </StackPanel>
 
+            <!--进度条-->
             <Slider Name="position_slider" Width="380" Margin="0,10" ValueChanged="Position_slider_ValueChanged"/>
             <TextBlock Name="time_textblock" Height="20" Text="00:00:00" HorizontalAlignment="Center"/>
 
@@ -82,6 +90,7 @@
             </StackPanel>
         </StackPanel>
 
+        <!--播放列表-->
         <StackPanel Grid.Row="1" Height="Auto" Width="390">
             
             <StackPanel Height="40" Width="120" Orientation="Horizontal" HorizontalAlignment="Right">
