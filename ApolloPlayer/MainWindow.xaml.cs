@@ -56,7 +56,6 @@ namespace ApolloPlayer
             else
             {
                 play_btn.Content = "▶";
-                albumpic.Source = new BitmapImage(new Uri("Image/Music.png"));
                 ((Storyboard)this.FindResource("Rotateright")).Stop();     //图片停止旋转
                 media.Pause();
             }
@@ -80,7 +79,7 @@ namespace ApolloPlayer
             }
             else
             {
-                albumpic.Source = new BitmapImage(new Uri("Image/Music.png"));
+                albumpic.Source = new BitmapImage(new Uri(@"Image/Music.png"));
                 ((Storyboard)this.FindResource("Rotateright")).Begin();   //图片开始旋转
             }
         }
@@ -222,7 +221,6 @@ namespace ApolloPlayer
             aboutWindow.Top = this.Top;
             aboutWindow.Show();
         }
-
-
+        
     }
 }
