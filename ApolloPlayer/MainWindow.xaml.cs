@@ -1,4 +1,5 @@
 ﻿using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
 using System;
 using System.Windows;
 using ApolloPlayer.Model;
@@ -133,6 +134,15 @@ namespace ApolloPlayer
                 play_list.Items.Refresh();
             }
             
+        }
+        
+        private void AboutButton_Click(object sender, RoutedEventArgs e)
+        {
+            AboutWindow aboutWindow = new AboutWindow();
+            aboutWindow.WindowStartupLocation = WindowStartupLocation.Manual;
+            aboutWindow.Left = this.Left;
+            aboutWindow.Top = this.Top;
+            aboutWindow.Show();
         }
     }
 }

@@ -4,6 +4,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:wpf="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:ApolloPlayer"
         mc:Ignorable="d"
         Title="Apollo Player" MinHeight="800" Height="800" MinWidth="400" Width="400"
@@ -12,7 +13,7 @@
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.FontSize="15"
-        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"   
+        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         WindowStartupLocation="CenterScreen" Closed="MetroWindow_Closed">
 
     <Window.Resources>
@@ -21,6 +22,18 @@
         </Storyboard>
     </Window.Resources>
 
+    <metro:MetroWindow.LeftWindowCommands>
+        <metro:WindowCommands>
+            <wpf:PopupBox>
+                <StackPanel>
+                    <Button Content="Hello World"/>
+                    <Button Content="设置"/>
+                    <Button Content="关于" Click="AboutButton_Click"/>
+                </StackPanel>
+            </wpf:PopupBox>
+        </metro:WindowCommands>
+    </metro:MetroWindow.LeftWindowCommands>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="250"/>
@@ -29,8 +42,10 @@
 
         <StackPanel Grid.Row="0" Orientation="Vertical" HorizontalAlignment="Center">
             <StackPanel Orientation="Horizontal" Height="120">
-                <MediaElement Name="media" LoadedBehavior="Manual" MediaOpened="Media_MediaOpened" MediaEnded="Media_MediaEnded" Source="" Volume="{Binding ElementName=volume_slider, Path=Value}"/>
+                <MediaElement Name="media" LoadedBehavior="Manual" MediaOpened="Media_MediaOpened" MediaEnded="Media_MediaEnded" 
+                              Source="" Volume="{Binding ElementName=volume_slider, Path=Value}"/>
                 <Border Height="100" Width="100" CornerRadius="50" Margin="10" BorderBrush="#24bc77" BorderThickness="4">
+                    <!--BorderBrush="#24bc77"-->
                     <Image Name="albumpic" Source="Image/Music.png" RenderTransformOrigin="0.5,0.5">
                         <Image.LayoutTransform>
                             <RotateTransform x:Name="rotate"/>
