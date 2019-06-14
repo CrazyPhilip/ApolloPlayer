@@ -75,7 +75,6 @@ namespace ApolloPlayer
             {
                 byte[] pic = x.Tag.Pictures[0].Data.Data;
                 albumpic.Source = ByteArrayToBitmapImage(pic);
-                
             }
             else
             {

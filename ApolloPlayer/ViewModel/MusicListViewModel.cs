@@ -66,7 +66,7 @@ namespace ApolloPlayer.ViewModel
                     temp = new MusicInfo();
                     Folder dir = shell.NameSpace(System.IO.Path.GetDirectoryName(file));
                     FolderItem item = dir.ParseName(System.IO.Path.GetFileName(file));
-
+                    
                     temp.file_name = dir.GetDetailsOf(item, 0);
                     temp.music_title = dir.GetDetailsOf(item, 21);
                     temp.album = dir.GetDetailsOf(item, 14);
@@ -74,7 +74,7 @@ namespace ApolloPlayer.ViewModel
                     temp.length = dir.GetDetailsOf(item, 27);
                     temp.size = dir.GetDetailsOf(item, 1);
                     temp.file_path = file;
-
+                    
                     temp_list.Add(temp);
                 }
                 Music_List = temp_list;

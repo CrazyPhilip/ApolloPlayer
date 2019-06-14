@@ -85,7 +85,7 @@
                         <ImageBrush ImageSource="image/Forwad_btn.png"/>
                     </Button.Background>
                 </Button>
-                <Slider Name="volume_slider" Minimum="0" Maximum="100" Width="120" VerticalAlignment="Center" Margin="10,0" Value="20"/>
+                <Slider Name="volume_slider" Minimum="0" Maximum="1" Value="0.2" SmallChange="0.02" LargeChange="0.02" Width="120" VerticalAlignment="Center" Margin="10,0"/>
                 <TextBlock Name="volume_tb" Width="30" VerticalAlignment="Center" Text="{Binding ElementName=volume_slider,Path=Value}"/>
             </StackPanel>
         </StackPanel>
