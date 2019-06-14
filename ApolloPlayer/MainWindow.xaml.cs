@@ -1,6 +1,4 @@
-﻿using MahApps.Metro.Controls;
-using MahApps.Metro.Controls.Dialogs;
-using System;
+﻿using System;
 using System.Windows;
 using ApolloPlayer.Model;
 using ApolloPlayer.ViewModel;
@@ -9,13 +7,14 @@ using System.Windows.Threading;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.IO;
+using SourceChord.FluentWPF;
 
 namespace ApolloPlayer
 {
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class MainWindow : MetroWindow
+    public partial class MainWindow : AcrylicWindow
     {
         private MusicListViewModel mlvm = new MusicListViewModel();
         //private PlayViewModel pvm = new PlayViewModel();
