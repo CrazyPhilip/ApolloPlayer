@@ -11,8 +11,18 @@
         Title="设置" MinHeight="400" Height="400" MinWidth="400" Width="400"
         TextElement.FontSize="15"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen" TintOpacity="{Binding Value, ElementName=opacity_slider}">
 
+    <fw:AcrylicWindow.Style>
+        <Style TargetType="{x:Type fw:AcrylicWindow}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=btnBlue}">
+                    <Setter Property="TintColor" Value="DeepSkyBlue"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </fw:AcrylicWindow.Style>
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -33,6 +43,22 @@
                     <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
                         <TextBlock Name="PathTextBlock" Height="30" Width="180"></TextBlock>
                         <Button Name="SelectPathButton" Content="选择" FontSize="12" Width="60" Height="30"/>
+                    </StackPanel>
+
+                    <Label Content="颜色" FontSize="18" HorizontalAlignment="Left"/>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Name="btnWhite" Background="White" Margin="5,0" BorderBrush="White"/>
+                        <Button Name="btnBlue" Background="DeepSkyBlue" Margin="5,0" BorderBrush="DeepSkyBlue"/>
+                        <Button Name="btnGreen" Background="Green" Margin="5,0" BorderBrush="Green"/>
+                        <Button Name="btnRed" Background="Red" Margin="5,0" BorderBrush="Red"/>
+                        <Button Name="btnYellow" Background="Yellow" Margin="5,0" BorderBrush="Yellow"/>
+                        
+                    </StackPanel>
+
+                    <Label Content="模糊度" FontSize="18" HorizontalAlignment="Left"/>
+                    <StackPanel Orientation="Horizontal">
+                        <Slider Name="opacity_slider" Minimum="0" Maximum="1" Value="0.2" Width="200" VerticalAlignment="Center" Margin="10,0"/>
+                        <TextBlock Name="opacity_tb" Width="30" VerticalAlignment="Center" Text="{Binding ElementName=opacity_slider,Path=Value}"/>
                     </StackPanel>
                     
                 </StackPanel>

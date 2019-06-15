@@ -232,6 +232,7 @@ namespace ApolloPlayer
             settingsWindow.Left = this.Left;
             settingsWindow.Top = this.Top;
             settingsWindow.Show();
+            
         }
     }
 }
