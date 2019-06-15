@@ -219,6 +219,19 @@ namespace ApolloPlayer
             aboutWindow.Top = this.Top;
             aboutWindow.Show();
         }
-        
+
+        /// <summary>
+        /// 设置
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SettingsButton_Click(object sender, RoutedEventArgs e)
+        {
+            SettingsWindow settingsWindow = new SettingsWindow();
+            settingsWindow.WindowStartupLocation = WindowStartupLocation.Manual;
+            settingsWindow.Left = this.Left;
+            settingsWindow.Top = this.Top;
+            settingsWindow.Show();
+        }
     }
 }

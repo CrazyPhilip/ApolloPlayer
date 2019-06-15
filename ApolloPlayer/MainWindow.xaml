@@ -10,7 +10,7 @@
         mc:Ignorable="d"
         Title="Apollo Player" MinHeight="800" Height="800" MinWidth="400" Width="400"
         WindowStartupLocation="CenterScreen" Closed="MetroWindow_Closed"
-        Icon="Image/icon.ico" TitleBarMode="Default" Background="#99FFFFFF">
+        TitleBarMode="Default" Background="#99FFFFFF">
 
     <Window.Resources>
         <Storyboard x:Key="Rotateright">
@@ -24,7 +24,7 @@
             <Menu Style="{StaticResource AcrylicMenuStyle}"
                   HorizontalAlignment="Right" VerticalAlignment="Center">
                 <MenuItem Header="...">
-                    <MenuItem Header="设置" />
+                    <MenuItem Header="设置" Click="SettingsButton_Click"/>
                     <MenuItem Header="关于" Click="AboutButton_Click"/>
                     <MenuItem Header="关闭">
                         <MenuItem Header="最小化"/>
