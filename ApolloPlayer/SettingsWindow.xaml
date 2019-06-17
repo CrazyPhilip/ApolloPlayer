@@ -42,7 +42,7 @@
                     <Label Content="默认目录" FontSize="18" HorizontalAlignment="Left"/>
                     <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
                         <TextBlock Name="PathTextBlock" Height="30" Width="180"></TextBlock>
-                        <Button Name="SelectPathButton" Content="选择" FontSize="12" Width="60" Height="30"/>
+                        <Button Name="SelectPathButton" Content="选择" FontSize="12" Width="60" Height="30" Click="SelectPathButton_Click"/>
                     </StackPanel>
 
                     <Label Content="颜色" FontSize="18" HorizontalAlignment="Left"/>
