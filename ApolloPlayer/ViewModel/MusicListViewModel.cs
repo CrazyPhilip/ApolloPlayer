@@ -9,6 +9,7 @@ using Shell32;
 using Microsoft.Win32;
 using Microsoft.Practices.Prism.Commands;
 using System.IO;
+using System.Collections.ObjectModel;
 
 namespace ApolloPlayer.ViewModel
 {
@@ -41,6 +42,7 @@ namespace ApolloPlayer.ViewModel
 
         public MusicListViewModel()
         {
+            Music_List = new List<MusicInfo>();
             Init();   //初始化，读取默认目录
 
             this.AddMusicCommand = new DelegateCommand(new Action(this.AddMusicCommandExecute));
@@ -93,9 +95,10 @@ namespace ApolloPlayer.ViewModel
         private void AddMusic(string[] files)
         {
             MusicInfo temp;
-            List<MusicInfo> temp_list = new List<MusicInfo>();
+            //List<MusicInfo> temp_list = Music_List;
             ShellClass shell = new ShellClass();
 
+            //Music_List.Clear();
             foreach (string file in files)
             {
                 temp = new MusicInfo();
@@ -109,10 +112,16 @@ namespace ApolloPlayer.ViewModel
                 temp.length = dir.GetDetailsOf(item, 27);
                 temp.size = dir.GetDetailsOf(item, 1);
                 temp.file_path = file;
-
-                temp_list.Add(temp);
+                
+                if (!Music_List.Exists(t => t.file_name.Equals(temp.file_name)))
+                {
+                    Music_List.Add(temp);
+                }
+                else
+                {
+                    continue;
+                }
             }
-            Music_List = temp_list;
         }
         
         private void ShuffleCommandExecute()
