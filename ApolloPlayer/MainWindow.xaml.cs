@@ -189,22 +189,6 @@ namespace ApolloPlayer
         {
             Next_Music();
         }
-
-        /// <summary>
-        /// 删除按钮
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Delete_btn_Click(object sender, RoutedEventArgs e)
-        {
-            if(mlvm.Current_Index > -1 && mlvm.Music_List.Count > 0)
-            {
-                mlvm.Music_List.RemoveAt(mlvm.Current_Index);
-                mlvm.Current_Index = (mlvm.Current_Index - 1) % (mlvm.Music_List.Count + 1);
-                play_list.Items.Refresh();
-            }
-            
-        }
         
         /// <summary>
         /// 关于
@@ -232,7 +216,6 @@ namespace ApolloPlayer
             settingsWindow.Left = this.Left;
             settingsWindow.Top = this.Top;
             settingsWindow.Show();
-            
         }
     }
 }

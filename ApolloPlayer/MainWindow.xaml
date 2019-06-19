@@ -94,7 +94,7 @@
                     <Button Name="add_btn" Content="+" Height="30" Width="30" Margin="5,0" ToolTip="添加"
                             Command="{Binding AddMusicCommand}" Style="{StaticResource MaterialDesignFloatingActionButton}"/>
                     <Button Name="delete_btn" Content="-" Height="30" Width="30" Margin="5,0" ToolTip="删除"
-                            Click="Delete_btn_Click" Style="{StaticResource MaterialDesignFloatingActionButton}"/>
+                            Command="{Binding DeleteCommand}" Style="{StaticResource MaterialDesignFloatingActionButton}"/>
                     <Button Name="random_btn" Height="30" Width="30" BorderBrush="{x:Null}" Command="{Binding ShuffleCommand}" ToolTip="随机播放">
                         <Button.Background>
                             <ImageBrush ImageSource="Image/random_btn.png"/>

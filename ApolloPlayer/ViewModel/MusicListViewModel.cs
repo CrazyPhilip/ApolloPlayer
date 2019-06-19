@@ -17,9 +17,10 @@ namespace ApolloPlayer.ViewModel
     {
         public DelegateCommand AddMusicCommand { get; set; }
         public DelegateCommand ShuffleCommand { get; set; }
+        public DelegateCommand DeleteCommand { get; set; }
 
-        private List<MusicInfo> music_list;   //播放列表
-        public List<MusicInfo> Music_List
+        private ObservableCollection<MusicInfo> music_list;   //播放列表
+        public ObservableCollection<MusicInfo> Music_List
         {
             get { return music_list; }
             set
@@ -42,11 +43,12 @@ namespace ApolloPlayer.ViewModel
 
         public MusicListViewModel()
         {
-            Music_List = new List<MusicInfo>();
+            Music_List = new ObservableCollection<MusicInfo>();
             Init();   //初始化，读取默认目录
 
             this.AddMusicCommand = new DelegateCommand(new Action(this.AddMusicCommandExecute));
             this.ShuffleCommand = new DelegateCommand(new Action(this.ShuffleCommandExecute));
+            this.DeleteCommand = new DelegateCommand(new Action(this.DeleteCommandExecute));
         }
         
         /// <summary>
@@ -95,9 +97,9 @@ namespace ApolloPlayer.ViewModel
         private void AddMusic(string[] files)
         {
             MusicInfo temp;
-            //List<MusicInfo> temp_list = Music_List;
+            //ObservableCollection<MusicInfo> temp_list = new ObservableCollection<MusicInfo>();
             ShellClass shell = new ShellClass();
-
+            
             //Music_List.Clear();
             foreach (string file in files)
             {
@@ -112,8 +114,8 @@ namespace ApolloPlayer.ViewModel
                 temp.length = dir.GetDetailsOf(item, 27);
                 temp.size = dir.GetDetailsOf(item, 1);
                 temp.file_path = file;
-                
-                if (!Music_List.Exists(t => t.file_name.Equals(temp.file_name)))
+
+                if (!Music_List.Any(t => t.file_name.Equals(temp.file_name)))
                 {
                     Music_List.Add(temp);
                 }
@@ -121,13 +123,17 @@ namespace ApolloPlayer.ViewModel
                 {
                     continue;
                 }
+                //Music_List.Add(temp);
             }
         }
         
+        /// <summary>
+        /// 随机按钮事件
+        /// </summary>
         private void ShuffleCommandExecute()
         {
             Random random = new Random();
-            List<MusicInfo> temp_list = new List<MusicInfo>();
+            ObservableCollection<MusicInfo> temp_list = new ObservableCollection<MusicInfo>();
 
             foreach (MusicInfo item in Music_List)
             {
@@ -136,6 +142,19 @@ namespace ApolloPlayer.ViewModel
 
             Music_List.Clear();
             Music_List = temp_list;
+        }
+
+        /// <summary>
+        /// 删除按钮事件
+        /// </summary>
+        private void DeleteCommandExecute()
+        {
+            if (Current_Index > -1 && Music_List.Count > 0)
+            {
+                Music_List.RemoveAt(Current_Index);
+                Current_Index = (Current_Index - 1) % (Music_List.Count + 1);
+                //play_list.Items.Refresh();
+            }
         }
     }
 }
